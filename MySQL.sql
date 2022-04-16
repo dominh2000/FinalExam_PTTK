@@ -567,4 +567,21 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Content` varchar(255) DEFAULT NULL,
+  `CustomerId` int NOT NULL,
+  `ItemBookBarcode` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FKReviewCus` (`CustomerId`),
+  KEY `FKReviewItem` (`ItemBookBarcode`),
+  CONSTRAINT `FKReviewCus` FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`Id`),
+  CONSTRAINT `FKReviewItem` FOREIGN KEY (`ItemBookBarcode`) REFERENCES `itembook` (`Barcode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
 -- Dump completed on 2022-01-01  1:25:34

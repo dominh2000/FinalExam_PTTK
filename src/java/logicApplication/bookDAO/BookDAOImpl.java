@@ -281,5 +281,4 @@ public class BookDAOImpl implements BookDAO {
     public boolean deleteBook(Book book) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
