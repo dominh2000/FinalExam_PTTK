@@ -575,6 +575,7 @@ UNLOCK TABLES;
 CREATE TABLE `review` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Content` varchar(255) DEFAULT NULL,
+  `CommentDate` date DEFAULT NULL,
   `CustomerId` int NOT NULL,
   `ItemBookBarcode` varchar(255) NOT NULL,
   PRIMARY KEY (`Id`),

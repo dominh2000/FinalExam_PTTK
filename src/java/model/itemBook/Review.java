@@ -6,6 +6,7 @@
 package model.itemBook;
 
 import java.io.Serializable;
+import java.sql.Date;
 import model.customer.Customer;
 
 /**
@@ -15,15 +16,17 @@ import model.customer.Customer;
 public class Review implements Serializable{
     private int id;
     private String content;
+    private Date commentDate;
     private Customer customer;
     private ItemBook itemBook;
 
     public Review() {
     }
 
-    public Review(int id, String content, Customer customer, ItemBook itemBook) {
+    public Review(int id, String content, Date commentDate, Customer customer, ItemBook itemBook) {
         this.id = id;
         this.content = content;
+        this.commentDate = commentDate;
         this.customer = customer;
         this.itemBook = itemBook;
     }
@@ -42,6 +45,14 @@ public class Review implements Serializable{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getCommentDate() {
+        return commentDate;
+    }
+
+    public void setCommentDate(Date commentDate) {
+        this.commentDate = commentDate;
     }
 
     public Customer getCustomer() {
