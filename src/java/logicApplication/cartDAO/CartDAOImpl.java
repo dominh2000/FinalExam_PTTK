@@ -169,12 +169,7 @@ public class CartDAOImpl implements CartDAO {
         }
 
     }
-
-    @Override
-    public boolean removeItemBookFromCart(ItemBook itemBook, Cart cart) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public List<SelectedItems> getItemsOfCart(int cartId) {
         ItemBookDAOImpl itemBookDAOImpl = new ItemBookDAOImpl();
@@ -217,6 +212,55 @@ public class CartDAOImpl implements CartDAO {
     public Payment getPayment(Payment payment) {
         PaymentDAOImpl paymentDAOImpl = new PaymentDAOImpl();
         return paymentDAOImpl.getPaymentById(payment.getId());
+    }
+
+    @Override
+    public boolean removeItemBookFromCart(Cart cart, SelectedItems selectedItem) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        
+        String query = "DELETE FROM selecteditems WHERE Id = ?";
+        
+        PreparedStatement ps = null;
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, selectedItem.getId());
+            
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            connectionPool.freeConnection(connection);
+        }
+    }
+
+    @Override
+    public boolean changeQuantity(Cart cart, SelectedItems selectedItem) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        
+        String query = "UPDATE selecteditems SET Quantity = ? WHERE Id = ?";
+        
+        PreparedStatement ps = null;
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, selectedItem.getQuantity());
+            ps.setInt(2, selectedItem.getId());
+            
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            connectionPool.freeConnection(connection);
+        }
     }
 
 }

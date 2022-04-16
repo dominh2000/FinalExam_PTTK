@@ -19,7 +19,8 @@ public interface CartDAO {
     Cart createCart();
     Cart getCartById(int id);
     boolean addItemBookToCart(ItemBook itemBook, Cart cart, int quantity);
-    boolean removeItemBookFromCart(ItemBook itemBook, Cart cart);
+    boolean removeItemBookFromCart(Cart cart, SelectedItems selectedItem);
+    boolean changeQuantity(Cart cart, SelectedItems selectedItem);
     List<SelectedItems> getItemsOfCart(int cartId);
     Payment getPayment(Payment payment);
 }
